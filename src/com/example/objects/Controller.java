@@ -55,9 +55,9 @@ public class Controller
 						Models.addObjects();
 					}
 				});
-
+		//something
 		MainActivity.mMainScene.registerUpdateHandler(spriteTimerHandler);
-	}
+	}  
 
 	public void checkCollision()
 	{
