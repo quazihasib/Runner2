@@ -181,8 +181,7 @@ public class Models
 				-Object.getWidth());
 		Object.registerEntityModifier(mod.deepCopy());
 
-		MainActivity.objectsToBeAdded.add(Object);  
-		//something
+		MainActivity.objectsToBeAdded.add(Object);
 
 	}
 

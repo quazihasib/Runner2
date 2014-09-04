@@ -31,6 +31,7 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
+
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Display;
@@ -84,6 +85,8 @@ public class MainActivity extends BaseGameActivity implements
 	public static BitmapTextureAtlas mAutoParallaxBackgroundTexture;
 	public static TextureRegion mParallaxLayer;
 
+	private TextureRegion mParallaxLayerMid;
+	
 	// win/fail sprites
 	public static Sprite winSprite;
 	public static Sprite failSprite;
@@ -168,6 +171,9 @@ public class MainActivity extends BaseGameActivity implements
 		mParallaxLayer = BitmapTextureAtlasTextureRegionFactory
 				.createFromAsset(mAutoParallaxBackgroundTexture, this,
 						"background.png", 0, 0);
+		
+		mParallaxLayerMid = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+			mAutoParallaxBackgroundTexture, this, "parallax_background_layer_mid.png", 0, 669);
 
 		mProjectileTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createFromAsset(mBitmapTextureAtlas, this,
@@ -283,10 +289,10 @@ public class MainActivity extends BaseGameActivity implements
 		final AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(
 				0, 0, 0, 10);
 
-		autoParallaxBackground
-				.attachParallaxEntity(new ParallaxEntity(-25.0f, new Sprite(0,
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-25.0f, new Sprite(0,
 						mCamera.getHeight() - mParallaxLayer.getHeight(),
 						mParallaxLayer)));
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-80.0f, new Sprite(0, 80, this.mParallaxLayerMid)));
 		mMainScene.setBackground(autoParallaxBackground);
 		mMainScene.setOnSceneTouchListener(this);
 
@@ -398,7 +404,7 @@ public class MainActivity extends BaseGameActivity implements
 
 	public void resumeMusic()
 	{
-		if (runningFlag)
+		if(runningFlag)
 			if(!backgroundMusic.isPlaying())
 				backgroundMusic.resume();
 	}
